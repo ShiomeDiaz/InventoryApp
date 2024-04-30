@@ -1,0 +1,5 @@
+export { EndpointUsers } from "./endpoints/Endpoint.user"
+export { EndpointComputers } from "./endpoints/Endpoint.computer"
+export { deleteComputer} from "./endpoints/Endpoint.computer"
+export {createComputer } from "./endpoints/Endpoint.computer"
+export {updateComputer} from "./endpoints/Endpoint.computer"

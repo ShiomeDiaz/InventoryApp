@@ -17,5 +17,5 @@ type Computer struct {
 	Battery      string `gorm:"type:varchar(10)"`
 	PurchaseDate string `gorm:"type:date"`
 	Status       string `gorm:"type:varchar(10)"`
-	CompanyID    string `gorm:"type:varchar(4)"`
+	CompanyID    string `gorm:"type:varchar(10);unique"`
 }

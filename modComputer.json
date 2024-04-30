@@ -1,0 +1,16 @@
+{
+    "Type": "Ultrabook",
+    "Brand": "Dell",
+    "Reference": "XPS9300",
+    "Processor": "Intel i7-1065G7",
+    "RAM": 16,
+    "Storage": 512,  
+    "HasEthernet": true,
+    "HasWifi": true,
+    "HasBluetooth": true,
+    "GPU": "Intel Iris Plus",
+    "Battery": "60Wh",
+    "PurchaseDate": "2020-05-03", 
+    "Status": "new",
+    "CompanyID": "DLL1"
+}
