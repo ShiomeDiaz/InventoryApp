@@ -8,6 +8,8 @@ require (
 	gorm.io/gorm v1.25.7
 )
 
+require github.com/google/uuid v1.6.0
+
 require (
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/jackc/pgpassfile v1.0.0 // indirect

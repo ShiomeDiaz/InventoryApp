@@ -11,6 +11,7 @@ import {
   import { useEffect, useState } from "react";
   import { useCookies } from "react-cookie";
   import { Dashboard } from "../../views/Home/Dashboard";
+import { Envios } from "../../views/Home/Envios";
   
 
   export function LoggedLayout() {
@@ -57,11 +58,12 @@ import {
     return (
       <div className="relative flex min-h-screen">
         <Sidebar />
-        <div className="flex-grow px-8 py-2 h-[100vh] overflow-y-clip max-h-screen overflow-x-auto">
+        <div className="flex-grow px-8 py-2 h-[100vh] overflow-y-clip max-h-screen overflow-x-auto bg-gray-100">
           <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventary" element={<Inventary />} />
+          <Route path="/envios" element={<Envios />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>

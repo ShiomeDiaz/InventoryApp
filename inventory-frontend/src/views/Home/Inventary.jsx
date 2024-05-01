@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { EndpointComputers, deleteComputer } from '../../services/endpoints/Endpoint.computer';
 import { DeleteConfirmationModal} from './../../components/molecules';
 import {CreateComputerModal, UpdateComputerModal, ComputerDetailsModal} from "./../../components/Modals"
-
+import { useAuth} from './../../context';
 import { FaEdit, FaTrash, FaInfoCircle } from 'react-icons/fa';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -21,6 +21,7 @@ export function Inventary() {
 
   const [computerDetails, setComputerDetails] = useState(null);
 const [showDetailsModal, setShowDetailsModal] = useState(false);
+const { isUserAdmin } = useAuth(); // Usa el hook de autenticación
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 12;
@@ -31,7 +32,34 @@ const [showDetailsModal, setShowDetailsModal] = useState(false);
       .catch(error => console.log(error));
   }, []);
 
+  // const handleDelete = async () => {
+  //   try {
+  //     // Verificar el rol del usuario antes de permitir la eliminación
+  //     if (userRole !== 'admin') {
+  //       console.error('Unauthorized: User does not have permission to delete computers');
+  //       return;
+  //     }
+  
+  //     const success = await deleteComputer(computerToDelete);
+  //     if (success) {
+  //       setComputers(prev => prev.filter(computer => computer.ID !== computerToDelete));
+  //       console.log("Computer deleted successfully");
+  //     }
+  //   } catch (error) {
+  //     console.error('Failed to delete computer:', error);
+  //   } finally {
+  //     setShowModal(false);
+  //     setComputerToDelete(null);
+  //   }
+  // };
+
   const handleDelete = async () => {
+    if (!isUserAdmin()) {
+      console.error('Unauthorized: User does not have permission to delete computers');
+      alert('No autorizado: Solo los administradores pueden eliminar computadores.');
+      return;
+    }
+
     try {
       const success = await deleteComputer(computerToDelete);
       if (success) {
@@ -45,6 +73,7 @@ const [showDetailsModal, setShowDetailsModal] = useState(false);
       setComputerToDelete(null);
     }
   };
+  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -104,15 +133,15 @@ const handleMoreInfo = (computer) => {
       <h1 className="text-xxl font-bold text-center">Inventario de Computadores</h1>
     </div>
     <div className="flex justify-between items-center mb-5">
-      <button onClick={() => setShowCreateModal(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Crear Nuevo Equipo
+      <button onClick={() => setShowCreateModal(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md sm:rounded-lg">
+        Nuevo Equipo
       </button>
       <input
         type="text"
         placeholder="Buscar computadores..."
         value={searchTerm}
         onChange={handleSearchChange}
-        className="px-4 py-2 border rounded"
+        className="px-4 py-2 border rounded shadow-md sm:rounded-lg"
       />
     </div>
   </div>
@@ -120,9 +149,9 @@ const handleMoreInfo = (computer) => {
       <CreateComputerModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
   
       <section>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto text-left">
-            <thead className="border-b bg-gray-200 text-black">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="w-full table-auto text-left bg-white text-sm rtl:text-right">
+            <thead className="border-b bg-gray-50 text-black uppercase text-xs">
               <tr>
                 <th className="px-4 py-2">Identificador AF</th>
                 <th className="px-4 py-2 cursor-pointer" onClick={() => handleSortChange('Type')}>

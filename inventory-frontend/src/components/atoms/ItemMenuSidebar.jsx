@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import React, { forwardRef } from 'react';
 import { NavLink } from "react-router-dom";
 
-export function ItemMenuSideBar({ name, to, route, isOpen, icon, onClick }) {
+export const ItemMenuSideBar = forwardRef(({ name, to, route, isOpen, icon, onClick }, ref) => {
   return (
     <li
       className={`text-white text-md font-semibold flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-3 ${
@@ -22,8 +23,7 @@ export function ItemMenuSideBar({ name, to, route, isOpen, icon, onClick }) {
       </NavLink>
     </li>
   );
-}
-
+});
 ItemMenuSideBar.propTypes = {
   name: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,

@@ -7,7 +7,6 @@ export function PrivateRoute({ children }) {
 
   if (cookies.token === undefined) {
     console.log(cookies.token);
-    console.log("sera este mk?")
     return <Navigate to="/Login" />;
   }
 

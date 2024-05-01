@@ -16,7 +16,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-green-500 w-80 h-80 p-6 rounded-lg cursor-pointer">
+        <div className="bg-green-500 w-80 h-80 p-6 rounded-lg cursor-pointer"onClick={() => navigate('/envios')}>
           <div className="flex flex-col items-center justify-center h-full">
             <FiTruck className=" text-9xl text-white" />
             <p className="mt-6 text-3xl font-bold text-white"> 
