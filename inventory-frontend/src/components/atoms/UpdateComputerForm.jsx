@@ -21,7 +21,6 @@ export const UpdateComputerForm = ({ computerData, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("test: ",computer.ID);
     const data = {
         Type: computer.Type,
         Brand: computer.Brand,
@@ -41,8 +40,7 @@ export const UpdateComputerForm = ({ computerData, onClose }) => {
     console.log(data);
 
     try {
-        const updated = await updateComputer(computer.ID, data);
-        console.log('Computador actualizado:', updated);
+        await updateComputer(computer.ID, data);
         toast.success('Computador actualizado con éxito.');
         setTimeout(onClose, 5000); 
     } catch (error) {

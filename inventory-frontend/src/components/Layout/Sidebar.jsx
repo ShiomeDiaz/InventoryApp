@@ -2,7 +2,10 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { MenuItems } from "../molecules/MenuItems";
 import { useAuth } from "../../context";
-import { BsBox, BsArrowRightShort } from "react-icons/bs";
+
+import { BsBox } from "react-icons/bs";
+
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -37,34 +40,32 @@ export function Sidebar() {
     <div
       className={` ${
         !isOpen ? "w-72" : "w-20 "
-      } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+      } bg-dark-purple -screen p-5 pt-8 relative duration-300 font-bold py-2 px-4 shadow-md `}
     >
-      <BsArrowRightShort
-        className={`bg-white text-dark-purple text-3xl 
-        rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${!isOpen ? "rotate-180 duration-300" : "duration-300"}`}
+      <MdKeyboardDoubleArrowRight
+        className={`bg-white text-dark-purple
+        rounded-full absolute -right-3 top-9 border font-bold cursor-pointer ${!isOpen ? "rotate-180 duration-300" : "duration-300"}`}
         onClick={toggleMenu}
+        size={28}
       />
 
-      <div className="inline-flex">
-        <BsBox className={`text-amber-300 bg-dark-purple text-4xl 
+      <div className="flex flex-col items-center justify-center">
+        <BsBox className={`text-white bg-dark-purple text-5xl 
         rounded cursor-pointer block float-left mr-2 duration-500 ${!isOpen&& "rotate-[360deg]"}`}/>
-        <h1 className={`text-white origin-left font-medium font-lobster text-3xl duration-500 ${isOpen && "scale-0"}`} >INVENTORY</h1>
+        <h1 className={`text-white origin-top font-roboto mt-1 text-3xl duration-500 ${isOpen && "scale-0"}`} >INVENTORY</h1>
       </div>
-
-      <Tippy content="Menú de navegación">
-  <MenuItems isOpen={!isOpen} />
-</Tippy>
-
-      <div className="text-white text-md font-semibold flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-3 mb-3 absolute bottom-0 ">
+      <MenuItems isOpen={!isOpen} />
+      <div className="text-white w-[90%] text-md font-semibold flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-3 mb-3 absolute bottom-10 ">
         <Tippy content="Cerrar Sesión">
           <button
-            className="text-white w-full border-none rounded flex items-center justify-center"
+            className="text-white w-full border-none rounded flex items-center "
             onClick={() => {
               logout();
             }}
           >
-            <FaSignOutAlt size={24} className="mr-2" />
-            {!isOpen ? "Logout" : ""}
+            <FaSignOutAlt size={25} className="mr-2" />
+            <p className="pl-1 origin-left ml-2" >{!isOpen ? "Logout" : ""}</p>
+            
           </button>
         </Tippy>
       </div>

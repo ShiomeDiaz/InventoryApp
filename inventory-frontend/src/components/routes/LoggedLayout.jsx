@@ -12,6 +12,7 @@ import {
   import { useCookies } from "react-cookie";
   import { Dashboard } from "../../views/Home/Dashboard";
 import { Envios } from "../../views/Home/Envios";
+import { CompanyInventory } from "../../views/Home/Company";
   
 
   export function LoggedLayout() {
@@ -64,6 +65,7 @@ import { Envios } from "../../views/Home/Envios";
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventary" element={<Inventary />} />
           <Route path="/envios" element={<Envios />} />
+          <Route path="/company" element={<CompanyInventory />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>

@@ -7,7 +7,7 @@ export function Dashboard() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-blue-500 w-80 h-80 p-6 rounded-lg cursor-pointer" onClick={() => navigate('/inventary')}>
+        <div className="bg-dark-blue w-80 h-80 p-6 rounded-lg cursor-pointer" onClick={() => navigate('/inventary')}>
           <div className="flex flex-col items-center justify-center h-full">
             <FiBox className="text-9xl text-white" />
             <p className="mt-6 text-3xl font-bold text-white">
@@ -16,7 +16,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-green-500 w-80 h-80 p-6 rounded-lg cursor-pointer"onClick={() => navigate('/envios')}>
+        <div className="bg-light-green w-80 h-80 p-6 rounded-lg cursor-pointer"onClick={() => navigate('/envios')}>
           <div className="flex flex-col items-center justify-center h-full">
             <FiTruck className=" text-9xl text-white" />
             <p className="mt-6 text-3xl font-bold text-white"> 
@@ -25,7 +25,7 @@ export function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-yellow-500 w-80 h-80 p-6 rounded-lg cursor-pointer">
+        <div className="bg-light-red w-80 h-80 p-6 rounded-lg cursor-pointer">
           <div className="flex flex-col items-center justify-center h-full">
             <FiDownload className="text-9xl text-white" />
             <p className="mt-6 text-3xl font-bold text-white"> 

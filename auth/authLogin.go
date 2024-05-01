@@ -1,32 +1,3 @@
-// func SignIn(username, password string) (string, error) {
-// 	user, err := services.GetUserByUsername(username)
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-// 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-// 	if err != nil {
-// 		return "", fmt.Errorf("invalid credentials")
-// 	}
-
-// 	secretKey := os.Getenv("JWT_SECRET_KEY") // Leer la clave secreta de la variable de entorno
-// 	if secretKey == "" {
-// 		return "", fmt.Errorf("secret key not configured")
-// 	}
-
-// 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-// 		"username": username,
-// 		"role":     user.Role, // Agregar el rol del usuario al token JWT
-// 		"exp":      time.Now().Add(time.Hour * 24).Unix(),
-// 	})
-
-// 	tokenString, err := token.SignedString([]byte(secretKey))
-// 	if err != nil {
-// 		return "", err
-// 	}
-
-//		return tokenString, nil
-//	}
 package auth
 
 import (

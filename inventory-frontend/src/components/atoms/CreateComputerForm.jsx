@@ -80,7 +80,6 @@ export const CreateComputerForm = ({ onClose }) => {
     } catch (error) {
       console.error('Error al crear el computador:', error);
       toast.error('Error al crear el computador: ' + error.message);
-      setTimeout(onClose, 5000);  // Igualmente, retrasa onClose en caso de error
     }
   };
   
@@ -185,14 +184,9 @@ export const CreateComputerForm = ({ onClose }) => {
         </div>
       
       </div>
-      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button type="submit" className="bg-dark-blue hover:bg-light-blue text-white font-bold py-2 px-4 rounded">
         Crear Computador
       </button>
-
-      {/* <button onClick={() => (showToastMessage())} type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Crear Computador
-</button> */}
-
     </form>
   );
 };

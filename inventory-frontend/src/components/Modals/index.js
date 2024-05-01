@@ -1,3 +1,7 @@
 export { CreateComputerModal } from "./CreateComputerModal"
 export {UpdateComputerModal} from "./UpdateComputerModal"
 export {ComputerDetailsModal} from "./ComputerDetailsModal"
+export {CompanyDetailsModal} from "./CompanyDetailsModal"
+export {CreateCompanyModal} from "./CreateCompanyModal"
+export {UpdateCompanyModal} from "./UpdateCompanyModal"
+export {DeleteConfirmationModal} from "./DeleteConfirmationModal"

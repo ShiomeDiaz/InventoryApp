@@ -4,7 +4,11 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      "dark-purple": "#081A51",
+      "dark-purple": "#081a51",
+      "dark-blue": "#007ea7",
+      "light-blue": "#00a8e8",
+      "light-green": "#4c9f70",
+      "light-red": "#ee6352",
       'light-white': 'rgba(255,255,255,0.18)',
       "primary-blue": "#165ea8",
       container: "#d4e3ff",
@@ -20,9 +24,12 @@ export default {
       red: colors.red,
       black: "#000000",
       transparent: "transparent",
+
     },
     fontFamily : {
-      'lobster' : ['lobster', 'sans-serif']
+      'lobster' : ['lobster', 'sans-serif'],
+      'roboto': ['Roboto', 'sans-serif'],
+      'inter': ['"Inter"', 'sans-serif'],
     },
     extend: {
     },

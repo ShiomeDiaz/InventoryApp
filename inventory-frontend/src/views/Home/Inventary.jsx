@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { EndpointComputers, deleteComputer } from '../../services/endpoints/Endpoint.computer';
+import { fetchComputer, deleteComputer } from '../../services/endpoints/Endpoint.computer';
 import { DeleteConfirmationModal} from './../../components/molecules';
 import {CreateComputerModal, UpdateComputerModal, ComputerDetailsModal} from "./../../components/Modals"
 import { useAuth} from './../../context';
-import { FaEdit, FaTrash, FaInfoCircle } from 'react-icons/fa';
+import { FaPlusCircle} from 'react-icons/fa';
+import { TbTrashX } from "react-icons/tb";
+import { RiEdit2Line } from "react-icons/ri";
+import { PiInfo } from "react-icons/pi";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import ReactPaginate from 'react-paginate';
@@ -20,14 +23,14 @@ export function Inventary() {
   const [computerToUpdate, setComputerToUpdate] = useState({});
 
   const [computerDetails, setComputerDetails] = useState(null);
-const [showDetailsModal, setShowDetailsModal] = useState(false);
-const { isUserAdmin } = useAuth(); // Usa el hook de autenticación
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const { isUserAdmin } = useAuth(); // Usa el hook de autenticación
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 12;
 
   useEffect(() => {
-    EndpointComputers()
+    fetchComputer()
       .then(computers => setComputers(computers))
       .catch(error => console.log(error));
   }, []);
@@ -130,30 +133,29 @@ const handleMoreInfo = (computer) => {
 <div className="p-5">
   <div className="flex flex-col">
     <div className="mb-4">
-      <h1 className="text-xxl font-bold text-center">Inventario de Computadores</h1>
+      <h1 className="text-xxl text-gray-700 font-bold font-roboto text-center">Inventario de Computadores</h1>
     </div>
     <div className="flex justify-between items-center mb-5">
-      <button onClick={() => setShowCreateModal(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md sm:rounded-lg">
-        Nuevo Equipo
+      <button onClick={() => setShowCreateModal(true)} className=" flex flex-row justify-between bg-dark-blue hover:bg-blue-800 text-white font-bold py-2 px-4 rounded shadow-md sm:rounded-lg">
+      Nuevo
+        <FaPlusCircle className="pl-1 mt-0.5 text-xl" />
       </button>
       <input
-        type="text"
-        placeholder="Buscar computadores..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="px-4 py-2 border rounded shadow-md sm:rounded-lg"
-      />
+  type="text"
+  placeholder="Buscar computadores..."
+  value={searchTerm}
+  onChange={handleSearchChange}
+  className="px-4 py-2 rounded shadow-md sm:rounded-lg text-dark-purple"
+/>
+
     </div>
   </div>
-  
-      <CreateComputerModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
-  
       <section>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full table-auto text-left bg-white text-sm rtl:text-right">
-            <thead className="border-b bg-gray-50 text-black uppercase text-xs">
+            <thead className="border-b bg-dark-blue text-white font-bold uppercase text-x justify-center items-center">
               <tr>
-                <th className="px-4 py-2">Identificador AF</th>
+                <th className="px-4 py-2 justify-center items-center ">AFID</th>
                 <th className="px-4 py-2 cursor-pointer" onClick={() => handleSortChange('Type')}>
                   Tipo de Computador {sortField === 'Type' && (sortOrder === 'asc' ? '↑' : '↓')}
                 </th>
@@ -174,7 +176,7 @@ const handleMoreInfo = (computer) => {
             </thead>
             <tbody>
               {currentItems.map(computer => (
-                <tr key={computer.ID} className="border-b">
+                <tr key={computer.ID} className="border-b text-gray-800 font-semibold">
                   <td className="px-4 py-2">{computer.CompanyID}</td>
                   <td className="px-4 py-2">{computer.Type}</td>
                   <td className="px-4 py-2">{computer.Brand}</td>
@@ -185,23 +187,23 @@ const handleMoreInfo = (computer) => {
                   <td className="px-4 py-2">{computer.GPU}</td>
                   <td className="px-4 py-2">{computer.Battery}</td>
                   <td className="px-4 py-2">{computer.Status}</td>
-                  <td className="px-4 py-2 flex justify-end items-center">
+                  <td className="px-4 py-2 flex justify-start items-center">
                     <Tippy content="Mas información">
-                      <button className="p-1 rounded-full text-green-500 hover:bg-blue-100"onClick={() => handleMoreInfo(computer)}>
-                        <FaInfoCircle className="text-2xl" />
+                      <button className="p-1 rounded-full text-light-green hover:bg-blue-100"onClick={() => handleMoreInfo(computer)}>
+                        <PiInfo className="text-2xl" />
                       </button>
                     </Tippy>
                     <Tippy content="Editar">
-                      <button className="p-1 rounded-full text-blue-500 hover:bg-blue-100"onClick={() => handleEdit(computer)}>
-                        <FaEdit className="text-2xl" />
+                      <button className="p-1 rounded-full text-dark-blue hover:bg-blue-100"onClick={() => handleEdit(computer)}>
+                        <RiEdit2Line className="text-2xl" />
                       </button>
                     </Tippy>
                     <Tippy content="Eliminar">
-                      <button className="p-1 rounded-full text-red-500 hover:bg-red-100" onClick={() => {
+                      <button className="p-1 rounded-full text-light-red hover:bg-red-100" onClick={() => {
                         setComputerToDelete(computer.ID);
                         setShowModal(true);
                       }}>
-                        <FaTrash className="text-2xl" />
+                        <TbTrashX className="text-2xl" />
                       </button>
                     </Tippy>
                   </td>
@@ -210,17 +212,17 @@ const handleMoreInfo = (computer) => {
             </tbody>
           </table>
         </div>
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center my-4 font-bold text-xl">
           <ReactPaginate
-            previousLabel={'Anterior'}
-            nextLabel={'Siguiente'}
+            previousLabel={'<<'}
+            nextLabel={'>>'}
             breakLabel={'...'}
             pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageClick}
             containerClassName={'flex list-none'}
-            activeClassName={'bg-blue-500 text-white rounded-full'}
+            activeClassName={'bg-dark-blue text-white rounded-full'}
             pageClassName={'mx-1'}
             pageLinkClassName={'block px-4 py-2'}
             previousClassName={'mx-1'}
@@ -248,6 +250,7 @@ const handleMoreInfo = (computer) => {
         onClose={() => setShowDetailsModal(false)}
         computer={computerDetails}
       />
+       <CreateComputerModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
 
 
 

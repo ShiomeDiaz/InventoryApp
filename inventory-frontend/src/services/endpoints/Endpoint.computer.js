@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:3000/computers';
 
-export async function EndpointComputers() {
+export async function fetchComputer() {
   try {
     const response = await axios.get(baseUrl);
     return response.data;

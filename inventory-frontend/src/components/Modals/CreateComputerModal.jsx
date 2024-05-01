@@ -1,6 +1,6 @@
 // CreateComputerModal.js
 import React from 'react';
-import { CreateComputerForm } from "./../atoms/CreateComputerForm";
+import { CreateComputerForm } from "./../atoms";
 import PropTypes from "prop-types";
 
 export const CreateComputerModal = ({ isOpen, onClose }) => {

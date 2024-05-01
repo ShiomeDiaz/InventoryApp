@@ -36,9 +36,9 @@ func corsMiddleware(next http.Handler) http.Handler {
 func main() {
 	connect.DBConnection()
 	connect.DB.AutoMigrate(models.User{})
-	connect.DB.AutoMigrate(models.Accessory{})
 	connect.DB.AutoMigrate(models.Computer{})
-	connect.DB.AutoMigrate(models.ComputerAccessory{})
+	connect.DB.AutoMigrate(models.Company{})
+
 	r := mux.NewRouter()
 	r.HandleFunc("/users", routes.GetUsersHandler).Methods("GET")
 	r.HandleFunc("/users/{id}", routes.GetUserHandler).Methods("GET")
@@ -52,6 +52,13 @@ func main() {
 	r.HandleFunc("/computers/{id}", routes.DeleteComputersHandler).Methods("DELETE")
 	r.HandleFunc("/computers/{id}", routes.GetComputerHandler).Methods("GET")
 	r.HandleFunc("/login", handlers.LoginHandler).Methods("POST")
+
+	// Rutas para el manejo de empresas
+	r.HandleFunc("/companies", routes.GetAllCompaniesHandler).Methods("GET")
+	r.HandleFunc("/companies/{id}", routes.GetCompanyHandler).Methods("GET")
+	r.HandleFunc("/companies", routes.PostCompanyHandler).Methods("POST")
+	r.HandleFunc("/companies/{id}", routes.UpdateCompanyHandler).Methods("PUT")
+	r.HandleFunc("/companies/{id}", routes.DeleteCompanyHandler).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":3000", corsMiddleware(r)))
 }

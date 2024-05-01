@@ -53,6 +53,17 @@ export const MenuItems = forwardRef(({ isOpen }, ref) => {
         onClick={() => setRoute("Home")}
       />
       </Tippy>
+      <Tippy content="Dashboard">
+      <ItemMenuSideBar
+        name="Empresas"
+        to="/company"
+        route={route}
+        isOpen={isOpen}
+        icon={<FaHouseLaptop size={24} />}
+        onClick={() => setRoute("Company")}
+      />
+      </Tippy>
+      
     </ul>
   );
 });
