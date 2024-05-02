@@ -38,6 +38,7 @@ func main() {
 	connect.DB.AutoMigrate(models.User{})
 	connect.DB.AutoMigrate(models.Computer{})
 	connect.DB.AutoMigrate(models.Company{})
+	connect.DB.AutoMigrate(models.CompanyComputer{})
 
 	r := mux.NewRouter()
 	r.HandleFunc("/users", routes.GetUsersHandler).Methods("GET")
@@ -59,6 +60,12 @@ func main() {
 	r.HandleFunc("/companies", routes.PostCompanyHandler).Methods("POST")
 	r.HandleFunc("/companies/{id}", routes.UpdateCompanyHandler).Methods("PUT")
 	r.HandleFunc("/companies/{id}", routes.DeleteCompanyHandler).Methods("DELETE")
+	// Rutas para el manejo de asignaciones de computadoras a empresas
+	r.HandleFunc("/companycomputers", routes.GetAllCompanyComputersHandler).Methods("GET")
+	r.HandleFunc("/companycomputers/{id}", routes.GetCompanyComputerHandler).Methods("GET")
+	r.HandleFunc("/companycomputers", routes.AddCompanyComputerHandler).Methods("POST")
+	r.HandleFunc("/companycomputers/{id}", routes.UpdateCompanyComputerHandler).Methods("PUT")
+	r.HandleFunc("/companycomputers/{id}", routes.DeleteCompanyComputerHandler).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":3000", corsMiddleware(r)))
 }

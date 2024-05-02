@@ -11,7 +11,8 @@ import {
   import { useEffect, useState } from "react";
   import { useCookies } from "react-cookie";
   import { Dashboard } from "../../views/Home/Dashboard";
-import { Envios } from "../../views/Home/Envios";
+import { ShipmentComputers } from "../../views/Home/ShipmentComputers";
+import { ReturnComputers } from "../../views/Home/ReturnComputers";
 import { CompanyInventory } from "../../views/Home/Company";
   
 
@@ -64,7 +65,8 @@ import { CompanyInventory } from "../../views/Home/Company";
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventary" element={<Inventary />} />
-          <Route path="/envios" element={<Envios />} />
+          <Route path="/shipment" element={<ShipmentComputers />} />
+          <Route path="/return" element={<ReturnComputers />} />
           <Route path="/company" element={<CompanyInventory />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" />} />

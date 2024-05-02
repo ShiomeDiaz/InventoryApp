@@ -20,6 +20,6 @@ type Computer struct {
 	GPU          string `gorm:"type:varchar(100)"`
 	Battery      string `gorm:"type:varchar(10)"`
 	PurchaseDate string `gorm:"type:date"`
-	Status       string `gorm:"type:varchar(10)"`
+	Status       string `gorm:"type:varchar(50)"`
 	CompanyID    string `gorm:"type:varchar(10);unique"`
 }

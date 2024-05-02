@@ -4,6 +4,7 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { SiGoogletagmanager } from "react-icons/si";
 import { MdSendTimeExtension } from "react-icons/md";
 import { FaHouseLaptop } from "react-icons/fa6";
+import { IoGitCompare } from "react-icons/io5";
 import { ItemMenuSideBar } from "../atoms";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -23,9 +24,9 @@ export const MenuItems = forwardRef(({ isOpen }, ref) => {
         onClick={() => setRoute("Dashboard")}
       />
       </Tippy>
-      <Tippy content="Gestion">
+      <Tippy content="Inventario">
       <ItemMenuSideBar
-        name="Gestion"
+        name="Inventario"
         to="/inventary"
         route={route}
         isOpen={isOpen}
@@ -35,22 +36,22 @@ export const MenuItems = forwardRef(({ isOpen }, ref) => {
             </Tippy>
             <Tippy content="Dashboard">
       <ItemMenuSideBar
-        name="Enviar"
-        to="/envios"
+        name="Envio"
+        to="/shipment"
         route={route}
         isOpen={isOpen}
         icon={<MdSendTimeExtension size={24} />}
-        onClick={() => setRoute("Envios")}
+        onClick={() => setRoute("ShipmentComputers")}
       />
             </Tippy>
        <Tippy content="Dashboard">
       <ItemMenuSideBar
-        name="Recibir"
-        to="/"
+        name="Devolucion"
+        to="/return"
         route={route}
         isOpen={isOpen}
         icon={<FaHouseLaptop size={24} />}
-        onClick={() => setRoute("Home")}
+        onClick={() => setRoute("ReturnComputers")}
       />
       </Tippy>
       <Tippy content="Dashboard">
@@ -59,7 +60,7 @@ export const MenuItems = forwardRef(({ isOpen }, ref) => {
         to="/company"
         route={route}
         isOpen={isOpen}
-        icon={<FaHouseLaptop size={24} />}
+        icon={<IoGitCompare size={24} />}
         onClick={() => setRoute("Company")}
       />
       </Tippy>
