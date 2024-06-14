@@ -21,6 +21,7 @@ export const ComputerDetailsModal = ({ isOpen, onClose, computer }) => {
             <div><strong>Tarjeta Gráfica:</strong> {computer.GPU}</div>
             <div><strong>Batería:</strong> {computer.Battery}</div>
             <div><strong>Estado Actual:</strong> {computer.Status}</div>
+            <div><strong>Propietario:</strong> {computer.Property}</div>
             <div><strong>Fecha de Adquisición:</strong> {computer.PurchaseDate}</div>
             <div><strong>WiFi?:</strong> {computer.HasWifi ? "Sí" : "No"}</div>
             <div><strong>Bluetooth?:</strong> {computer.HasBluetooth ? "Sí" : "No"}</div>

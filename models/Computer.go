@@ -22,4 +22,5 @@ type Computer struct {
 	PurchaseDate string `gorm:"type:date"`
 	Status       string `gorm:"type:varchar(50)"`
 	CompanyID    string `gorm:"type:varchar(10);unique"`
+	Property     string `gorm:"type:varchar(50)"`
 }
