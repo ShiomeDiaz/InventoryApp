@@ -8,25 +8,34 @@ export const ComputerDetailsModal = ({ isOpen, onClose, computer }) => {
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl p-6 relative w-full max-w-3xl">
         <button onClick={onClose} className="absolute top-3 right-3 text-lg font-semibold">&times;</button>
-        <h2 className="text-xl font-bold mb-4">Detalles del Computador</h2>
+        <h2 className="text-2xl font-bold mb-4">Especificaciones tecnicas</h2>
         {computer && (
-          <div className="space-y-2">
-            <div><strong>Identificador AF:</strong> {computer.CompanyID}</div>
-            <div><strong>Tipo:</strong> {computer.Type}</div>
-            <div><strong>Marca:</strong> {computer.Brand}</div>
-            <div><strong>Modelo:</strong> {computer.Reference}</div>
-            <div><strong>Procesador:</strong> {computer.Processor}</div>
-            <div><strong>RAM:</strong> {computer.RAM} GB</div>
-            <div><strong>Almacenamiento:</strong> {computer.Storage} GB</div>
-            <div><strong>Tarjeta Gráfica:</strong> {computer.GPU}</div>
-            <div><strong>Batería:</strong> {computer.Battery}</div>
-            <div><strong>Estado Actual:</strong> {computer.Status}</div>
-            <div><strong>Propietario:</strong> {computer.Property}</div>
-            <div><strong>Fecha de Adquisición:</strong> {computer.PurchaseDate}</div>
-            <div><strong>WiFi?:</strong> {computer.HasWifi ? "Sí" : "No"}</div>
-            <div><strong>Bluetooth?:</strong> {computer.HasBluetooth ? "Sí" : "No"}</div>
-            <div><strong>Ethernet?:</strong> {computer.HasEthernet ? "Sí" : "No"}</div>
-          </div>
+          <table className="min-w-full bg-white">
+            <tbody>
+              {[
+                ["Identificador AF", computer.CompanyID],
+                ["Tipo", computer.Type],
+                ["Marca", computer.Brand],
+                ["Modelo", computer.Reference],
+                ["Procesador", computer.Processor],
+                ["RAM", `${computer.RAM} GB`],
+                ["Almacenamiento", `${computer.Storage} GB`],
+                ["Tarjeta Gráfica", computer.GPU],
+                ["Batería", computer.Battery],
+                ["Estado Actual", computer.Status],
+                ["Propietario", computer.Property],
+                ["Fecha de Adquisición", computer.PurchaseDate],
+                ["WiFi?", computer.HasWifi ? "Sí" : "No"],
+                ["Bluetooth?", computer.HasBluetooth ? "Sí" : "No"],
+                ["Ethernet?", computer.HasEthernet ? "Sí" : "No"],
+              ].map(([label, value], index) => (
+                <tr key={index} className="border-t border-gray-200">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{label}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
     </div>
@@ -35,7 +44,7 @@ export const ComputerDetailsModal = ({ isOpen, onClose, computer }) => {
 
 // Definición de PropTypes para asegurar la integridad de los datos
 ComputerDetailsModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    computer: PropTypes.object
-  };
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  computer: PropTypes.object
+};
