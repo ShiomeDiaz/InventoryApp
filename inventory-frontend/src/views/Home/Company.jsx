@@ -199,15 +199,25 @@ export function CompanyInventory() {
         open={showModal}
         onClose={() => setShowModal(false)}
         onConfirm={handleDelete}
+        onSuccess={() => {
+          fetchCompanies().then(setCompanies); // Recarga las empresas después de actualizar una
+        }}
+        
       />
       <CreateCompanyModal
        isOpen={showCreateModal}
-        onClose={() => setShowCreateModal(false)} 
+        onClose={() => setShowCreateModal(false)}
+        onSuccess={() => {
+          fetchCompanies().then(setCompanies); // Recarga las empresas después de crear una nueva
+        }}
         />
       <UpdateCompanyModal 
       isOpen={showUpdateModal} 
       onClose={() => setShowUpdateModal(false)} 
       companyData={companyToUpdate} 
+      onSuccess={() => {
+        fetchCompanies().then(setCompanies); // Recarga las empresas después de actualizar una
+      }}
       />
 
     </div>

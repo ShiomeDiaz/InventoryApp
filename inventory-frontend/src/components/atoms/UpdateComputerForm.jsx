@@ -4,7 +4,7 @@ import { updateComputer } from "./../../services"; // Importa la función de act
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const UpdateComputerForm = ({ computerData, onClose }) => {
+export const UpdateComputerForm = ({ computerData, onClose, onSuccess }) => {
   const [computer, setComputer] = useState({});
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export const UpdateComputerForm = ({ computerData, onClose }) => {
     try {
         await updateComputer(computer.ID, data);
         toast.success('Computador actualizado con éxito.');
+        onSuccess();
         setTimeout(onClose, 5000); 
     } catch (error) {
         console.error('Error al actualizar el computador:', error);
@@ -173,5 +174,6 @@ export const UpdateComputerForm = ({ computerData, onClose }) => {
 
 UpdateComputerForm.propTypes = {
   computerData: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };

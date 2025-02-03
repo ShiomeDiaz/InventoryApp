@@ -4,7 +4,7 @@ import {createComputer} from "./../../services"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const CreateComputerForm = ({ onClose }) => {
+export const CreateComputerForm = ({ onClose, onSuccess }) => {
   const [computer, setComputer] = useState({
     Type: '',
     Brand: '',
@@ -76,6 +76,7 @@ export const CreateComputerForm = ({ onClose }) => {
       const newComputer = await createComputer(computer);
       console.log('Nuevo computador creado:', newComputer);
       toast.success('Computador creado con éxito.');
+      onSuccess();
       setTimeout(onClose, 5000);  // Retrasa onClose para dar tiempo al toast para que se muestre
     } catch (error) {
       console.error('Error al crear el computador:', error);

@@ -1,0 +1,111 @@
+basePath: /
+definitions:
+  models.Role:
+    enum:
+    - admin
+    - user
+    type: string
+    x-enum-varnames:
+    - RoleAdmin
+    - RoleUser
+  models.User:
+    properties:
+      id:
+        type: string
+      password:
+        description: Ignorar en respuestas JSON
+        type: string
+      role:
+        $ref: '#/definitions/models.Role'
+      username:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Devuelve todos los usuarios registrados en la base de datos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Obtiene una lista de todos los usuarios
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Añade un nuevo usuario a la base de datos
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid user role or error in request data
+          schema:
+            type: string
+        "500":
+          description: Error hashing password
+          schema:
+            type: string
+      summary: Crea un nuevo usuario
+      tags:
+      - users
+  /users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Devuelve un usuario específico basado en el ID proporcionado
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid UUID format
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+      summary: Obtiene un usuario por su ID
+      tags:
+      - users
+swagger: "2.0"

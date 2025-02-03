@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { fetchComputer, deleteComputer } from '../../services/endpoints/Endpoint.computer';
+import {fetchCompanyComputerById, createCompanyComputer} from "../../services/endpoints/Endpoint.rentcomputer"
 import { DeleteConfirmationModal, RentButton } from './../../components/molecules';
-import { CreateComputerModal, UpdateComputerModal, ComputerDetailsModal } from "./../../components/Modals"
+import { CreateComputerModal, UpdateComputerModal, ComputerDetailsModal, RentAComputerModal, ReturnAComputerModal } from "./../../components/Modals"
 import { useAuth } from './../../context';
 import { FaPlusCircle } from 'react-icons/fa';
 import { TbTrashX } from "react-icons/tb";
@@ -20,6 +21,8 @@ export function Inventary() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showRentModal, setShowRentModal] = useState(false);
+  const [showReturnModal, setShowReturnModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [computerToDelete, setComputerToDelete] = useState(null);
   const [computerToUpdate, setComputerToUpdate] = useState({});
@@ -37,27 +40,6 @@ export function Inventary() {
       .catch(error => console.log(error));
   }, []);
 
-  // const handleDelete = async () => {
-  //   try {
-  //     // Verificar el rol del usuario antes de permitir la eliminación
-  //     if (userRole !== 'admin') {
-  //       console.error('Unauthorized: User does not have permission to delete computers');
-  //       return;
-  //     }
-
-  //     const success = await deleteComputer(computerToDelete);
-  //     if (success) {
-  //       setComputers(prev => prev.filter(computer => computer.ID !== computerToDelete));
-  //       console.log("Computer deleted successfully");
-  //     }
-  //   } catch (error) {
-  //     console.error('Failed to delete computer:', error);
-  //   } finally {
-  //     setShowModal(false);
-  //     setComputerToDelete(null);
-  //   }
-  // };
-
   const handleDelete = async () => {
     if (!isUserAdmin()) {
       console.error('Unauthorized: User does not have permission to delete computers');
@@ -68,6 +50,7 @@ export function Inventary() {
     try {
       const success = await deleteComputer(computerToDelete);
       if (success) {
+        fetchComputer().then(setComputers);
         setComputers(prev => prev.filter(computer => computer.ID !== computerToDelete));
         console.log("Computer deleted successfully");
       }
@@ -105,6 +88,23 @@ export function Inventary() {
   const handleMoreInfo = (computer) => {
     setComputerDetails(computer);
     setShowDetailsModal(true);
+  };
+  const handleRentAComputer = (computer) => {
+    setComputerDetails(computer);
+    setShowRentModal(true);
+  };
+
+  const handleReturnAComputer = (computer) => {
+    setComputerDetails(computer);
+    setShowReturnModal(true);
+  };
+  const handleRentComputer = async (computerId, companyId) => {
+    try {
+      const newAssignment = await createCompanyComputer({ computer_id: computerId, company_id: companyId });
+      setComputers(prevComputers => [...prevComputers, newAssignment]);
+    } catch (error) {
+      console.error('Error al rentar el computador:', error);
+    }
   };
 
 
@@ -192,11 +192,11 @@ export function Inventary() {
                   <td className="px-4 py-2">{computer.Battery}</td>
                   <td className="px-4 py-2">{computer.Status}</td>
                   <td className="px-4 py-2 flex justify-start items-center">
-                    <RentButton
+                  <RentButton
                       status={computer.Status}
-                      onClick={() => handleMoreInfo(computer)}
+                      onRentClick={() => handleRentAComputer(computer)} // Abre el modal de renta
+                      onOtherClick={() => handleReturnAComputer(computer)} // Abre el modal de retorno
                     />
-
                     <Tippy content="Mas información">
                       <button className="p-1 rounded-full text-light-green hover:bg-blue-100" onClick={() => handleMoreInfo(computer)}>
                         <PiInfo className="text-2xl" />
@@ -247,6 +247,10 @@ export function Inventary() {
         isOpen={showUpdateModal}
         onClose={() => setShowUpdateModal(false)}
         computerData={computerToUpdate}
+        onSuccess={() => {
+          fetchComputer().then(setComputers); 
+        }}
+        
       />
 
       <DeleteConfirmationModal
@@ -259,10 +263,26 @@ export function Inventary() {
         onClose={() => setShowDetailsModal(false)}
         computer={computerDetails}
       />
-      <CreateComputerModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} />
+      <CreateComputerModal 
+      isOpen={showCreateModal} 
+      onClose={() => setShowCreateModal(false)}
+      onSuccess={() => {
+        fetchComputer().then(setComputers); 
+        }}/>
 
+<RentAComputerModal
+        isOpen={showRentModal}
+        onClose={() => setShowRentModal(false)}
+        computer={computerDetails || {}}
+        onSuccess={() => fetchComputer().then(setComputers)}
+      />
 
-
+      <ReturnAComputerModal
+        isOpen={showReturnModal} // Usar showReturnModal para el modal de retorno
+        onClose={() => setShowReturnModal(false)}
+        computer={computerDetails || {}}
+        onSuccess={() => fetchComputer().then(setComputers)}
+      />
       <footer>
         {/* Pie de página */}
       </footer>

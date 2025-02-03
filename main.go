@@ -64,8 +64,11 @@ func main() {
 	r.HandleFunc("/companycomputers", routes.GetAllCompanyComputersHandler).Methods("GET")
 	r.HandleFunc("/companycomputers/{id}", routes.GetCompanyComputerHandler).Methods("GET")
 	r.HandleFunc("/companycomputers", routes.AddCompanyComputerHandler).Methods("POST")
+	r.HandleFunc("/companycomputers2", routes.AddCompanyComputersHandler).Methods("POST")
 	r.HandleFunc("/companycomputers/{id}", routes.UpdateCompanyComputerHandler).Methods("PUT")
 	r.HandleFunc("/companycomputers/{id}", routes.DeleteCompanyComputerHandler).Methods("DELETE")
+	// Rutas para el manejo de pdf
+	r.HandleFunc("/generate-pdf/{companyComputerID}/{actType}", routes.GeneratePDFHandler).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":3000", corsMiddleware(r)))
 }

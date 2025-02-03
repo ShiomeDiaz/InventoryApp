@@ -4,7 +4,7 @@ import {createCompany} from "./../../services"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const CreateCompanyForm = ({ onClose }) => {
+export const CreateCompanyForm = ({ onClose, onSuccess }) => {
     const [company, setCompany] = useState({
         nit: '',
         name: '',
@@ -24,6 +24,7 @@ export const CreateCompanyForm = ({ onClose }) => {
           const newCompany = await createCompany(company);
           console.log('Nueva Empresa creada:', newCompany);
           toast.success('Nueva Empresa creada con éxito.');
+          onSuccess();
           setTimeout(onClose, 5000);  // Retrasa onClose para dar tiempo al toast para que se muestre
         } catch (error) {
           console.error('Error al crear la Empresa:', error);
@@ -86,5 +87,6 @@ export const CreateCompanyForm = ({ onClose }) => {
 };
 
 CreateCompanyForm.propTypes = {
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func.isRequired,
 };

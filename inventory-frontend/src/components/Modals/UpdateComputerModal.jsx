@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {UpdateComputerForm} from "./../atoms"
 
-export const UpdateComputerModal = ({ isOpen, onClose, computerData }) => {
+export const UpdateComputerModal = ({ isOpen, onClose, computerData, onSuccess }) => {
   if (!isOpen) return null;
 
   if (!computerData) {
@@ -22,7 +22,7 @@ export const UpdateComputerModal = ({ isOpen, onClose, computerData }) => {
       <div className="bg-white rounded-lg shadow-xl p-6 relative">
         <button onClick={onClose} className="absolute top-3 right-3 text-lg font-semibold">&times;</button>
         <h2 className="text-xl font-bold mb-4">Actualizar Equipo: {computerData.CompanyID}</h2>
-        <UpdateComputerForm computerData={computerData} onClose={onClose} />
+        <UpdateComputerForm computerData={computerData} onClose={onClose} onSuccess={onSuccess} />
       </div>
     </div>
   );
@@ -31,5 +31,6 @@ export const UpdateComputerModal = ({ isOpen, onClose, computerData }) => {
 UpdateComputerModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    computerData: PropTypes.object.isRequired
+    computerData: PropTypes.object.isRequired,
+    onSuccess: PropTypes.func.isRequired,
 };

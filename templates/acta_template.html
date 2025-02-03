@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de {{.ActType}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        .table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        .table td {
+            width: 70%;
+        }
+        .firma-table {
+            width: 100%;
+            margin-top: 30px;
+        }
+        .firma-table td {
+            width: 50%;
+            vertical-align: top;
+            padding: 10px; /* Aumenta el espacio interno de cada celda */
+        }
+        .firma-table p {
+            margin: 15px 0; /* Aumenta el espacio vertical entre los párrafos */
+        }
+        .firma-line {
+            margin-bottom: 40px;
+            border-top: 1px solid black;
+            height: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Acta de {{.ActType}}</h1>
+
+    <p><strong>Cliente:</strong> {{.CompanyName}}</p>
+    <p><strong>NIT/CC:</strong> {{.CompanyNit}}</p>
+
+    <table class="table">
+        <tr>
+            <td>AF:</td>
+            <td>{{.ComputerID}}</td>
+        </tr>
+        <tr>
+            <td>Tipo:</td>
+            <td>{{.Type}}</td>
+        </tr>
+        <tr>
+            <td>Marca:</td>
+            <td>{{.Brand}}</td>
+        </tr>
+        <tr>
+            <td>Referencia:</td>
+            <td>{{.Reference}}</td>
+        </tr>
+        <tr>
+            <td>Procesador:</td>
+            <td>{{.Processor}}</td>
+        </tr>
+        <tr>
+            <td>RAM:</td>
+            <td>{{.RAM}}</td>
+        </tr>
+        <tr>
+            <td>Almacenamiento:</td>
+            <td>{{.Storage}}</td>
+        </tr>
+        <tr>
+            <td>Ethernet:</td>
+            <td>{{if .HasEthernet}}Sí{{else}}No{{end}}</td>
+        </tr>
+        <tr>
+            <td>WiFi:</td>
+            <td>{{if .HasWifi}}Sí{{else}}No{{end}}</td>
+        </tr>
+        <tr>
+            <td>Bluetooth:</td>
+            <td>{{if .HasBluetooth}}Sí{{else}}No{{end}}</td>
+        </tr>
+        <tr>
+            <td>GPU:</td>
+            <td>{{.GPU}}</td>
+        </tr>
+        <tr>
+            <td>Batería:</td>
+            <td>{{.Battery}}</td>
+        </tr>
+        <tr>
+            <td>Fecha de {{.ActType}}:</td>
+            <td>{{.Fecha}}</td>
+        </tr>
+    </table>
+
+    <!-- Sección de Entrega y Recibe en tabla para alineación -->
+    <table class="firma-table">
+        <tr>
+            <td>
+                <p><strong>Entrega:</strong></p>
+                <p class="firma-line"></p>
+                <p><strong>Nombre:</strong> ____________________________</p>
+                <p><strong>CC:</strong> ____________________________</p>
+            </td>
+            <td>
+                <p><strong>Recibe:</strong></p>
+                <p class="firma-line"></p>
+                <p><strong>Nombre:</strong> ____________________________</p>
+                <p><strong>CC:</strong> ____________________________</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

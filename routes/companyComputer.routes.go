@@ -12,6 +12,59 @@ import (
 	"gorm.io/gorm"
 )
 
+// Añadir asignaciones de múltiples computadores a una empresa
+func AddCompanyComputersHandler(w http.ResponseWriter, r *http.Request) {
+	var payload struct {
+		CompanyID   string   `json:"company_id"`
+		ComputerIDs []string `json:"computer_ids"`
+	}
+
+	// Decodificar el cuerpo de la solicitud
+	err := json.NewDecoder(r.Body).Decode(&payload)
+	if err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	if len(payload.ComputerIDs) == 0 {
+		http.Error(w, "No ComputerIDs provided", http.StatusBadRequest)
+		return
+	}
+
+	// Convertir CompanyID a uuid.UUID
+	companyUUID, err := uuid.Parse(payload.CompanyID)
+	if err != nil {
+		http.Error(w, "Invalid CompanyID format", http.StatusBadRequest)
+		return
+	}
+
+	// Crear los registros en la base de datos
+	var companyComputers []models.CompanyComputer
+	for _, computerID := range payload.ComputerIDs {
+		computerUUID, err := uuid.Parse(computerID)
+		if err != nil {
+			http.Error(w, "Invalid ComputerID format: "+computerID, http.StatusBadRequest)
+			return
+		}
+
+		companyComputers = append(companyComputers, models.CompanyComputer{
+			CompanyID:  companyUUID,
+			ComputerID: computerUUID,
+		})
+	}
+
+	// Insertar en la base de datos
+	result := connect.DB.Create(&companyComputers)
+	if result.Error != nil {
+		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Responder con los registros creados
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(companyComputers)
+}
+
 // Añadir una asignación de computador a una empresa
 func AddCompanyComputerHandler(w http.ResponseWriter, r *http.Request) {
 	var companyComputer models.CompanyComputer

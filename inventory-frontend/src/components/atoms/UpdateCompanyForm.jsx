@@ -4,7 +4,7 @@ import { updateCompany } from "./../../services"; // Importa la función de actu
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const UpdateCompanyForm = ({ companyData, onClose }) => {
+export const UpdateCompanyForm = ({ companyData, onClose, onSuccess }) => {
   const [company, setCompany] = useState({});
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export const UpdateCompanyForm = ({ companyData, onClose }) => {
     try {
         await updateCompany(company.ID, data);
         toast.success('Empresa actualizada con éxito.');
+        onSuccess();
         setTimeout(onClose, 5000); 
     } catch (error) {
         console.error('Error al actualizar la Empresa:', error);
@@ -152,5 +153,6 @@ export const UpdateCompanyForm = ({ companyData, onClose }) => {
 
 UpdateCompanyForm.propTypes = {
   companyData: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 };
